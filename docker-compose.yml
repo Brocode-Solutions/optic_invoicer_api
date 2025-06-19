@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    command: >
+      sh -c "python manage.py migrate && python manage.py collectstatic --noinput && daphne -b 0.0.0.0 -p 8000 optic_invoicer_api.asgi:application"
+    environment:
+      # Django settings
+      SECRET_KEY: your-secret-key
+      DEBUG: "False"
+      # Database settings
+      DB_NAME: opticdb
+      DB_USER: opticuser
+      DB_PASSWORD: opticpassword
+      DB_HOST: db
+      DB_PORT: "5432"
+      # Optional: Use DATABASE_URL instead of above DB_* vars
+      # DATABASE_URL: postgres://opticuser:opticpassword@db:5432/opticdb
+      # AWS S3 settings
+      AWS_ACCESS_KEY_ID: your_aws_access_key_id
+      AWS_S3_REGION_NAME: ap-south-1
+      AWS_SECRET_ACCESS_KEY: your_aws_secret_access_key
+      AWS_STORAGE_BUCKET_NAME: your_aws_bucket_name
+      # Email settings
+      EMAIL_FROM_EMAIL: your_from_email@example.com
+      EMAIL_HOST: your_email_host
+      EMAIL_HOST_USER: your_email_user
+      EMAIL_HOST_PASSWORD: your_email_password
+      EMAIL_PORT: "587"
+      EMAIL_USE_TLS: "True"
+      USE_LOCAL_STORAGE: "True"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: opticdb
+      POSTGRES_USER: opticuser
+      POSTGRES_PASSWORD: opticpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
