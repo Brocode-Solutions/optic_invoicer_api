@@ -23,10 +23,14 @@ ALLOWED_HOSTS = [
     'optic-invoicer-ui-v2.vercel.app',
     'optic-invoicer-api-fbd12c65eacc.herokuapp.com',
     'opticinvoicer.brocodesolutions.com'
+    env('BACKEND_URL', default=''),
+    env('FRONTEND_URL', default=''),
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
+    env('BACKEND_URL', default=''),
+    env('FRONTEND_URL', default=''),
     'https://optic-invoicer-ui.vercel.app',
     'https://optic-invoicer-ui-v2-aneeshni47.vercel.app',
     'https://optic-invoicer-ui-v2.vercel.app',
@@ -36,6 +40,8 @@ CSRF_TRUSTED_ORIGINS = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    env('BACKEND_URL', default=''),
+    env('FRONTEND_URL', default=''),
     'https://optic-invoicer-ui.vercel.app',
     'https://optic-invoicer-ui-v2-aneeshni47.vercel.app',
     'https://optic-invoicer-ui-v2.vercel.app',
