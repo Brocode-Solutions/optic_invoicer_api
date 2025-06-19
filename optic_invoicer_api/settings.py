@@ -22,7 +22,7 @@ ALLOWED_HOSTS = [
     'optic-invoicer-ui-v2-aneeshni47.vercel.app',
     'optic-invoicer-ui-v2.vercel.app',
     'optic-invoicer-api-fbd12c65eacc.herokuapp.com',
-    'opticinvoicer.brocodesolutions.com'
+    'opticinvoicer.brocodesolutions.com',
     env('BACKEND_URL', default=''),
     env('FRONTEND_URL', default=''),
 ]
